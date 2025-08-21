@@ -1,0 +1,28 @@
+# Ignore all .log files
+*.log
+
+# Ignore all .tmp files
+*.tmp
+
+# Ignore directories like 'node_modules'
+node_modules/
+
+# Ignore specific files
+.DS_Store
+Thumbs.db
+
+# Ignore build artifacts
+build/
+dist/
+target/
+
+# Ignore editor-specific files
+.idea/
+.vscode/
+
+# Ignore environment variables
+.env
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
