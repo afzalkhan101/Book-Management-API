@@ -3,30 +3,19 @@ from sqlalchemy.orm import Session
 from database import Base, engine, get_db
 from models import Book
 
-# Create DB tables
 Base.metadata.create_all(bind=engine)
-
 app = FastAPI()
 
-# -------------------------------
-# 1. Function Dependency (Auth)
-# -------------------------------
 def get_token_header(token: str = Query(...)):
     if token != "mysecret":
         raise HTTPException(status_code=403, detail="Invalid Token")
     return token
 
-# -------------------------------
-# 2. Class Dependency (Query Params)
-# -------------------------------
 class CommonQueryParams:
     def __init__(self, skip: int = 0, limit: int = 10):
         self.skip = skip
         self.limit = limit
 
-# -------------------------------
-# 3. Sub-dependency (Cookie + Query)
-# -------------------------------
 def query_extractor(q: str | None = None):
     return q
 
@@ -35,9 +24,6 @@ def query_or_cookie_extractor(
 ):
     return q or last_query
 
-# -------------------------------
-# ROUTES
-# -------------------------------
 
 @app.post("/books/", dependencies=[Depends(get_token_header)])
 def create_book(title: str, author: str, db: Session = Depends(get_db)):
